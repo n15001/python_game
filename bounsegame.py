@@ -1,0 +1,13 @@
+__author__ = 'n15001 <n15001@std.it-college.ac.jp>'
+
+from tkinter import *
+import random
+import time
+
+tk = Tk()
+tk.title("Game")
+tk.resizable(0,0)
+tk.wm_attribustes("-topmost", 1)
+canvas = Canvas(tk, width=500, height=400, bd=0, highlightthickness=0)
+canvas.pack()
+tk.update()
