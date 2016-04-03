@@ -44,9 +44,11 @@ class Paddle:
         self.id = canvas.create_rectangle(0, 0, 100, 10, fill=color)
         self.canvas.move(self.id, 200, 300)
         self.x = 0
+        self.start = False
         self.canvas_width = self.canvas.winfo_width()
         self.canvas.bind_all('<KeyPress-Left>', self.turn_left)
         self.canvas.bind_all('<KeyPress-Right>', self.turn_right)
+        self.canvas.bind_all('<Key>', self.game_start)
     def draw(self):
         self.canvas.move(self.id, self.x, 0)
         pos = self.canvas.coords(self.id)
@@ -58,6 +60,8 @@ class Paddle:
         self.x = -2
     def turn_right(self, evt):
         self.x = 2
+    def game_start(self, evt):
+        self.start = True
 
 tk = Tk()
 tk.title("Game")
@@ -69,11 +73,15 @@ tk.update()
 
 paddle = Paddle(canvas, 'blue')
 ball = Ball(canvas, paddle, 'red')
+button = Button(canvas, text='Exit', width=40, height=25, command=canvas.destroy)
 
 while True:
-    if ball.hit_bottom == False:
+    if ball.hit_bottom == False and paddle.start == True:
         ball.draw()
         paddle.draw()
+    if ball.hit_bottom == True:
+        time.sleep(0.02)
+        button.pack()
     tk.update_idletasks()
     tk.update()
     time.sleep(0.01)
