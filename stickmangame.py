@@ -60,7 +60,7 @@ def collided_bottom(y, co1, co2):
             return True
         return False
 
-class Splite:
+class Sprite:
     def __init__(self, game):
         self.game = game
         self.endgame = False
@@ -69,7 +69,15 @@ class Splite:
         pass
     def coords(self):
         return self.coordinates
-    
+
+class PlatformSprite(Sprite):
+    def __init__(self, game, photo_image, x, y, width, height):
+        Sprite.__init__(self, game)
+        self.photo_image = photo_image
+        self.image = game.canvas.create_image(x, y, image=self.photo_image, anchor='nw')
+        self.coordinates = Coords(x, y, x + width, y + height)
+
+
 class Game:
     def __init__(self):
         self.tk = Tk()
@@ -100,4 +108,25 @@ class Game:
                 time.sleep(0.01)
 
 g = Game()
+platform1 = PlatformSprite(g, PhotoImage(file="platform.gif"), 0, 480, 100, 10)
+platform2 = PlatformSprite(g, PhotoImage(file='platform.gif'), 150, 440, 100, 10)
+platform3 = PlatformSprite(g, PhotoImage(file='platform.gif'), 300, 400, 100, 10)
+platform4 = PlatformSprite(g, PhotoImage(file='platform.gif'), 300, 160, 100, 10)
+platform5 = PlatformSprite(g, PhotoImage(file='platform.gif'), 175, 350, 100, 10)
+platform6 = PlatformSprite(g, PhotoImage(file='platform.gif'), 50, 300, 100, 10)
+platform7 = PlatformSprite(g, PhotoImage(file='platform.gif'), 170, 120, 100, 10)
+platform8 = PlatformSprite(g, PhotoImage(file='platform.gif'), 45, 60, 100, 10)
+platform9 = PlatformSprite(g, PhotoImage(file='platform.gif'), 170, 250, 100, 10)
+platform10 = PlatformSprite(g, PhotoImage(file='platform.gif'), 230, 200, 100, 10)
+
+g.sprites.append(platform1)
+g.sprites.append(platform2)
+g.sprites.append(platform3)
+g.sprites.append(platform4)
+g.sprites.append(platform5)
+g.sprites.append(platform6)
+g.sprites.append(platform7)
+g.sprites.append(platform8)
+g.sprites.append(platform9)
+g.sprites.append(platform10)
 g.mainloop()
