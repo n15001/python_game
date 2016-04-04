@@ -67,6 +67,8 @@ class Sprite:
         self.coordinates = None
     def move(self):
         pass
+    def restart(self):
+        pass
     def coords(self):
         return self.coordinates
 
@@ -93,6 +95,15 @@ class StickFigureSprite(Sprite):
         game.canvas.bind_all('<KeyPress-Left>', self.turn_left)
         game.canvas.bind_all('<KeyPress-Right>', self.turn_right)
         game.canvas.bind_all('<space>', self.jump)
+
+
+    def restart(self):
+        Sprite.restart(self)
+        pos = self.game.canvas.coords(self.image)
+        self.game.canvas.move(self.image, 200-pos[0], 450-pos[1])
+        self.splat = False
+        self.animate()
+
 
     def turn_left(self, evt):
         if self.y == 0:
@@ -198,7 +209,6 @@ class DoorSprite(Sprite):
         self.endgame = True
 
 
-
 class Game:
     def __init__(self):
         self.tk = Tk()
@@ -219,6 +229,17 @@ class Game:
         self.sprites = []
         self.running = True
 
+
+
+        btn1 = Button(self.tk, text="   Restart   ", command=self.restart)
+        btn1.place(x=200, y=20)
+    def restart(self):
+        for sprite in self.sprites:
+            sprite.restart()
+            self.running = True
+
+
+
     def mainloop(self):
         while 1:
             if self.running == True:
@@ -227,6 +248,11 @@ class Game:
                 self.tk.update_idletasks()
                 self.tk.update()
                 time.sleep(0.01)
+
+
+'''button = Button(canvas, text='Exit', width=40, height=25, command=canvas.destroy)'''
+
+
 
 g = Game()
 platform1 = PlatformSprite(g, PhotoImage(file="platform.gif"), 0, 480, 100, 10)
@@ -248,7 +274,7 @@ g.sprites.append(platform5)
 g.sprites.append(platform6)
 g.sprites.append(platform7)
 g.sprites.append(platform8)
-g.sprites.append(platform9) 
+g.sprites.append(platform9)
 g.sprites.append(platform10)
 door = DoorSprite(g, PhotoImage(file="door1.gif"), 45, 30, 40, 35)
 g.sprites.append(door)
