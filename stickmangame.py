@@ -100,6 +100,10 @@ class StickFigureSprite(Sprite):
     def turn_right(self, evt):
         if self.y == 0:
             self.x = 2
+    def jump(self, evt):
+        if self.y == 0:
+            self.y = -4
+            self.jump_count = 0
 
 class Game:
     def __init__(self):
