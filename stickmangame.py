@@ -94,7 +94,12 @@ class StickFigureSprite(Sprite):
         game.canvas.bind_all('<KeyPress-Right>', self.turn_right)
         game.canvas.bind_all('<space>', self.jump)
 
-
+    def turn_left(self, evt):
+        if self.y == 0:
+            self.x = -2
+    def turn_right(self, evt):
+        if self.y == 0:
+            self.x = 2
 
 class Game:
     def __init__(self):
